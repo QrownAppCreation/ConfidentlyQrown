@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConfidentlyQrown — Scripture Flash Cards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #F5F0EB 0%, #E8E0D8 50%, #D8CFC6 100%);
+    min-height: 100vh;
+    color: #503D37;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    text-align: center;
+  }
+
+  /* Profile / Brand Header */
+  .brand-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C4A96A, #A8925A);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(196, 169, 106, 0.3);
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #503D37;
+    margin-bottom: 6px;
+  }
+
+  .brand-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #8C7B6F;
+    margin-bottom: 8px;
+  }
+
+  .brand-desc {
+    font-size: 13px;
+    color: #9E8E82;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+
+  /* Section Headers */
+  .section-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #A8925A;
+    margin: 30px 0 15px;
+    position: relative;
+  }
+
+  .section-header::before,
+  .section-header::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: #C4A96A;
+  }
+  .section-header::before { right: calc(50% + 60px); }
+  .section-header::after { left: calc(50% + 60px); }
+
+  /* Product Links */
+  .link-card {
+    display: block;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(196, 169, 106, 0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: #503D37;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(80, 61, 55, 0.12);
+    border-color: #C4A96A;
+  }
+
+  .link-card .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .link-card .card-sub {
+    font-size: 12px;
+    color: #9E8E82;
+    font-weight: 300;
+  }
+
+  .link-card .card-price {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #A8925A;
+  }
+
+  .link-card .card-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .badge-digital { background: #E8F5E9; color: #2E7D32; }
+  .badge-physical { background: #FFF3E0; color: #E65100; }
+  .badge-new { background: #F3E5F5; color: #7B1FA2; }
+  .badge-coming { background: #E3F2FD; color: #1565C0; }
+
+  /* Cross Divider */
+  .cross-divider {
+    margin: 25px auto;
+    font-size: 18px;
+    color: #C4A96A;
+    letter-spacing: 12px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    font-size: 11px;
+    color: #B0A298;
+    line-height: 1.8;
+  }
+
+  .footer a {
+    color: #A8925A;
+    text-decoration: none;
+  }
+
+  .social-links {
+    margin-top: 15px;
+  }
+
+  .social-links a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(196, 169, 106, 0.15);
+    color: #A8925A;
+    line-height: 36px;
+    text-align: center;
+    margin: 0 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+
+  .social-links a:hover {
+    background: #C4A96A;
+    color: white;
+  }
+
+  .email-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #A8925A;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(196, 169, 106, 0.3);
+    padding-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Brand Header -->
+  <div class="brand-icon">CQ</div>
+  <div class="brand-name">ConfidentlyQrown</div>
+  <div class="brand-tagline">Speak His Word Over Your Life</div>
+  <div class="brand-desc">
+    Scripture-based flash card sets for daily devotion, prayer, and encouragement.<br>
+    30 KJV verses per set with personal affirmations. Available as instant digital downloads and premium printed decks.
+  </div>
+
+  <!-- Digital Downloads -->
+  <div class="section-header">Digital Downloads</div>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Blessings Scripture Cards <span class="card-badge badge-digital">Digital</span></span>
+    <span class="card-sub">30 KJV verses on God's blessings &amp; favor</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Healing Scripture Cards <span class="card-badge badge-digital">Digital</span></span>
+    <span class="card-sub">30 KJV verses for physical &amp; emotional healing</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Peace of Mind Cards <span class="card-badge badge-digital">Digital</span></span>
+    <span class="card-sub">30 KJV verses for anxiety, stress &amp; worry</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Promotion Scripture Cards <span class="card-badge badge-digital">Digital</span></span>
+    <span class="card-sub">30 KJV verses for career favor &amp; breakthrough</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Pregnancy Scripture Cards <span class="card-badge badge-digital">Digital</span></span>
+    <span class="card-sub">30 KJV verses for expectant mothers</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Fertility Scripture Cards <span class="card-badge badge-digital">Digital</span></span>
+    <span class="card-sub">30 KJV verses for couples trying to conceive</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Wives Scripture Cards <span class="card-badge badge-new">New</span></span>
+    <span class="card-sub">30 KJV verses for godly wives &amp; marriage</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Husbands Scripture Cards <span class="card-badge badge-new">New</span></span>
+    <span class="card-sub">30 KJV verses for godly husbands &amp; leaders</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Ministry Scripture Cards <span class="card-badge badge-new">New</span></span>
+    <span class="card-sub">30 KJV verses for pastors &amp; church leaders</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Godly Children Cards <span class="card-badge badge-new">New</span></span>
+    <span class="card-sub">30 KJV verses for praying over your children</span>
+    <span class="card-price">$7.99</span>
+  </a>
+
+  <div class="cross-divider">&#10013;</div>
+
+  <!-- Printed Decks -->
+  <div class="section-header">Printed Decks</div>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">Wives — Printed Deck <span class="card-badge badge-coming">Coming Soon</span></span>
+    <span class="card-sub">32-card premium printed deck, matte finish, shrink-wrapped</span>
+    <span class="card-price">$39.99</span>
+  </a>
+
+  <a href="#" class="link-card" style="opacity: 0.6; pointer-events: none;">
+    <span class="card-title">All Categories <span class="card-badge badge-coming">Coming Soon</span></span>
+    <span class="card-sub">Printed decks for all 10 scripture card sets</span>
+    <span class="card-price">$39.99</span>
+  </a>
+
+  <div class="cross-divider">&#10013;</div>
+
+  <!-- Bundles -->
+  <div class="section-header">Bundles</div>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" target="_blank">
+    <span class="card-title">90-Card Scripture Bundle</span>
+    <span class="card-sub">Blessings + Healing + Peace of Mind — save 20%</span>
+    <span class="card-price">$16.79</span>
+  </a>
+
+  <a href="#" class="link-card" style="opacity: 0.6; pointer-events: none;">
+    <span class="card-title">Digital + Physical Bundle <span class="card-badge badge-coming">Coming Soon</span></span>
+    <span class="card-sub">Instant PDF download + printed deck shipped to you</span>
+    <span class="card-price">$44.99</span>
+  </a>
+
+  <!-- Shop Link -->
+  <div class="cross-divider">&#10013;</div>
+
+  <a href="https://www.etsy.com/shop/ConfidentlyQrown" class="link-card" style="background: linear-gradient(135deg, #C4A96A, #A8925A); color: white; border: none;" target="_blank">
+    <span class="card-title" style="color: white;">Visit Our Etsy Shop</span>
+    <span class="card-sub" style="color: rgba(255,255,255,0.8);">Browse all scripture card sets</span>
+    <span class="card-price" style="color: white;">&#8594;</span>
+  </a>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="mailto:quin3030@hotmail.com" class="email-link">quin3030@hotmail.com</a>
+    <br><br>
+    &copy; 2026 ConfidentlyQrown. All rights reserved.<br>
+    Scripture quotations from the King James Version (KJV).
+  </div>
+
+</div>
+</body>
+</html>
